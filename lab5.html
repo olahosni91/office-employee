@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <title>JavaScript Lab5</title>
+    </head>
+    <script>
+        //Employee Class
+        class Employee{
+            constructor(id, email, workMood, isManager){
+                this.id = id;
+                this.email = email;
+                this.workMood = workMood;
+                this.isManager = isManager;
+               
+            }
+            work(hours){
+                if(hours == 8)
+                    this.workMood = 'happy';
+                else if(hours < 8)
+                    this.workMood = 'tired';
+                else if(hours > 8)
+                    this.workMood = 'lazy';
+                alert(`Work Mood : ${this.workMood}`);         
+            }
+            eat(meals){
+                switch(meals){
+                case 3:{
+                    this.healthRate = 100;
+                    break;
+                }
+                case 2: {
+                    this.healthRate = 75;
+                    break;
+                }
+                case 1:{
+                    this.healthRate = 50;
+                    break;
+                }
+                }
+                alert(`Health Rate : ${this.healthRate} `);
+
+            }
+            buy(items){
+                if(items != undefined)  {
+                    for(let i=1; i <= items; i++)
+                        this.money -= 10;
+                }
+                alert(`Remained Money: ${this.money}`);
+
+            }
+            sleep(hours){
+                if(hours == 7)
+                    this.sleepMode = 'happy';
+                else if(hours < 7)
+                    this.sleepMode = 'tired';
+                else if(hours > 7)
+                    this.sleepMode = 'lazy';
+                alert(`Sleep Mode : ${this.sleepMode}`);
+            }
+        }
+        var done = 'working';
+        class Office extends Employee{
+            #salary = 1000;
+            constructor(id, email, workMood, isManager, name){
+                super(id, email, workMood, isManager);
+                this.name = name;
+                this.getAllEmployees = () => employees;
+                this.getEmployee = (empId) => employees.filter((element) => element.id == empId);
+                this.hire = (employee) => {
+                    employees.push(employee);
+                }
+                this.fire = (empId) =>{
+                    employees.splice(empId-1,1);
+                }
+            }
+            get salary() {
+                return this.#salary;
+            }
+            set salary(empSalary) {
+                (empSalary < 1000) ? 1000 : empSalary;
+                this.#salary = empSalary;
+            }
+        }
+        
+        var employees =[];
+        for(let i=1;;i++){
+        var mngr;
+        let process = prompt(`Enter 'add' for adding new employee \n 'mngr' for adding new manager \n 'nrml' for adding normal employee`)
+
+        if (process == 'q' || process == null)
+            break;
+        else if(process == 'add' || process == 'nrml')
+            mngr = false;
+        else if(process == 'mngr')
+            mngr = true;
+        var empName = prompt(`Enter the name`);
+        var empEmail = prompt(`Enter the email`);
+        var empSalary = prompt(`Enter salary`);
+        
+        var emp = new Office(i, empEmail,'happy', mngr, empName);
+        emp.salary = empSalary;
+        emp.hire(emp);
+        alert(`Employee ${i} added successfully!`);
+        
+    }
+
+
+
+
+
+        
+    </script>
+</html>
